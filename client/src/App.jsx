@@ -8,7 +8,7 @@ import Employees from "./pages/Employees";
 import Leave from "./pages/Leave";
 import Payslips from "./pages/Payslips";
 import PrintPayslip from "./pages/PrintPayslip";
-import Setting from "./pages/Setting";
+import Settings from "./pages/Settings";
 import LoginForm from "./components/LoginForm";
 
 const App = () => {
@@ -43,7 +43,7 @@ const App = () => {
           <Route path="/employees" element={<Employees />} />
           <Route path="/leave" element={<Leave />} />
           <Route path="/payslips" element={<Payslips />} />
-          <Route path="/setting" element={<Setting />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
         <Route path="/print/Payslip/:id" element={<PrintPayslip />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
