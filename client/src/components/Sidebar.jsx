@@ -28,7 +28,7 @@ const Sidebar = () => {
     setMobilOpen(false);
   }, [pathname]);
 
-  const role = "" || "EMPLOYEE";
+  const role = "ADMIN" || "EMPLOYEE";
   const navItems = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutGridIcon },
     role === "ADMIN"
@@ -73,7 +73,7 @@ const Sidebar = () => {
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center ring-1 ring-white/10 shrink-0">
               <span className="text-slate-400 text-xs font-semibold">
-                {userName.charAt(0).toUpperCase()}
+                {userName[0]}
               </span>
             </div>
             <div className="min-w-0">
