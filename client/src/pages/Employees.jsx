@@ -2,6 +2,7 @@ import { Plus, Search, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { DEPARTMENTS, dummyEmployeeData } from "../assets/assets";
 import EmployeeCard from "../components/EmployeeCard";
+import EmployeeForm from "../components/EmployeeForm";
 
 const Employees = () => {
   const [employees, setEmployees] = useState([]);
@@ -131,147 +132,13 @@ const Employees = () => {
 
             {/* form & buttons */}
             <div className="p-6">
-              <form className="space-y-6 max-w-3xl animate-fade-in">
-                <div className="card p-5 sm:p-6">
-                  <h3 className="font-medium mb-6 pb-4 border-b border-slate-100">
-                    Personal Information
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm text-slate-700">
-                    <div>
-                      <label className="block mb-2">First Name</label>
-                      <input required name="firstName" />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Last Name</label>
-                      <input required name="lastName" />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Phone Number</label>
-                      <input required name="phone" />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Join Date</label>
-                      <input
-                        required
-                        type="date"
-                        defaultValue
-                        name="joinDate"
-                      />
-                    </div>
-                    <div className="sm:col-span-2">
-                      <label className="block mb-2">Bio (Optional)</label>
-                      <textarea
-                        name="bio"
-                        rows={3}
-                        className="resize-none"
-                        placeholder="Brief description..."
-                        defaultValue={""}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="card p-5 sm:p-6">
-                  <h3 className="text-base font-medium text-slate-900 mb-6 pb-4 border-b border-slate-100">
-                    Employment Details
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm text-slate-700">
-                    <div>
-                      <label className="block mb-2">Department</label>
-                      <select name="department">
-                        <option value selected>
-                          Select Department
-                        </option>
-                        <option value="Engineering">Engineering</option>
-                        <option value="Human Resources">Human Resources</option>
-                        <option value="Marketing">Marketing</option>
-                        <option value="Sales">Sales</option>
-                        <option value="Finance">Finance</option>
-                        <option value="Operations">Operations</option>
-                        <option value="IT Support">IT Support</option>
-                        <option value="Customer Success">
-                          Customer Success
-                        </option>
-                        <option value="Product Management">
-                          Product Management
-                        </option>
-                        <option value="Design">Design</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block mb-2">Position</label>
-                      <input required name="position" />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Basic Salary</label>
-                      <input
-                        required
-                        min={0}
-                        step="0.01"
-                        type="number"
-                        defaultValue={0}
-                        name="basicSalary"
-                      />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Allowances</label>
-                      <input
-                        min={0}
-                        step="0.01"
-                        required
-                        type="number"
-                        defaultValue={0}
-                        name="allowances"
-                      />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Deductions</label>
-                      <input
-                        min={0}
-                        step="0.01"
-                        required
-                        type="number"
-                        defaultValue={0}
-                        name="deductions"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="card p-5 sm:p-6">
-                  <h3 className="text-base font-medium text-slate-900 mb-6 pb-4 border-b border-slate-100">
-                    Account Setup
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm text-slate-700">
-                    <div className="sm:col-span-2">
-                      <label className="block mb-2">Work Email</label>
-                      <input required type="email" name="email" />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Temporary Password</label>
-                      <input required type="password" name="password" />
-                    </div>
-                    <div>
-                      <label className="block mb-2">System Role</label>
-                      <select name="role">
-                        <option value="EMPLOYEE" selected>
-                          Employee
-                        </option>
-                        <option value="ADMIN">Admin</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-2">
-                  <button type="button" className="btn-secondary">
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="btn-primary flex items-center justify-center"
-                  >
-                    Create Employee
-                  </button>
-                </div>
-              </form>
+              <EmployeeForm
+                onSuccess={() => {
+                  setShowCreateModal(false);
+                  fetchEmployees();
+                }}
+                onCancel={() => setShowCreateModal(false)}
+              />
             </div>
           </div>
         </div>
@@ -308,171 +175,14 @@ const Employees = () => {
 
             {/* form & buttons */}
             <div className="p-6">
-              <form className="space-y-6 max-w-3xl animate-fade-in">
-                <div className="card p-5 sm:p-6">
-                  <h3 className="font-medium mb-6 pb-4 border-b border-slate-100">
-                    Personal Information
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm text-slate-700">
-                    <div>
-                      <label className="block mb-2">First Name</label>
-                      <input required defaultValue="James" name="firstName" />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Last Name</label>
-                      <input required defaultValue="Thomas" name="lastName" />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Phone Number</label>
-                      <input required defaultValue={7878787878} name="phone" />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Join Date</label>
-                      <input
-                        required
-                        type="date"
-                        defaultValue="2026-04-02"
-                        name="joinDate"
-                      />
-                    </div>
-                    <div className="sm:col-span-2">
-                      <label className="block mb-2">Bio (Optional)</label>
-                      <textarea
-                        name="bio"
-                        rows={3}
-                        className="resize-none"
-                        placeholder="Brief description..."
-                        defaultValue={""}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="card p-5 sm:p-6">
-                  <h3 className="text-base font-medium text-slate-900 mb-6 pb-4 border-b border-slate-100">
-                    Employment Details
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm text-slate-700">
-                    <div>
-                      <label className="block mb-2">Department</label>
-                      <select name="department">
-                        <option value>Select Department</option>
-                        <option value="Engineering">Engineering</option>
-                        <option value="Human Resources">Human Resources</option>
-                        <option value="Marketing">Marketing</option>
-                        <option value="Sales" selected>
-                          Sales
-                        </option>
-                        <option value="Finance">Finance</option>
-                        <option value="Operations">Operations</option>
-                        <option value="IT Support">IT Support</option>
-                        <option value="Customer Success">
-                          Customer Success
-                        </option>
-                        <option value="Product Management">
-                          Product Management
-                        </option>
-                        <option value="Design">Design</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block mb-2">Position</label>
-                      <input
-                        required
-                        defaultValue="Marketing"
-                        name="position"
-                      />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Basic Salary</label>
-                      <input
-                        required
-                        min={0}
-                        step="0.01"
-                        type="number"
-                        defaultValue={30000}
-                        name="basicSalary"
-                      />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Allowances</label>
-                      <input
-                        min={0}
-                        step="0.01"
-                        required
-                        type="number"
-                        defaultValue={300}
-                        name="allowances"
-                      />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Deductions</label>
-                      <input
-                        min={0}
-                        step="0.01"
-                        required
-                        type="number"
-                        defaultValue="299.99"
-                        name="deductions"
-                      />
-                    </div>
-                    <div>
-                      <label className="block mb-2">Status</label>
-                      <select name="employmentStatus">
-                        <option value="ACTIVE" selected>
-                          Active
-                        </option>
-                        <option value="INACTIVE">Inactive</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div className="card p-5 sm:p-6">
-                  <h3 className="text-base font-medium text-slate-900 mb-6 pb-4 border-b border-slate-100">
-                    Account Setup
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm text-slate-700">
-                    <div className="sm:col-span-2">
-                      <label className="block mb-2">Work Email</label>
-                      <input
-                        required
-                        type="email"
-                        defaultValue="tem1@gmail.com"
-                        name="email"
-                      />
-                    </div>
-                    <div>
-                      <label className="block mb-2">
-                        Change Password (Optional)
-                      </label>
-                      <input
-                        placeholder="Leave blank to keep current"
-                        type="password"
-                        name="password"
-                      />
-                    </div>
-                    <div>
-                      <label className="block mb-2">System Role</label>
-                      <select name="role">
-                        <option value="EMPLOYEE" selected>
-                          Employee
-                        </option>
-                        <option value="ADMIN">Admin</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-2">
-                  <button type="button" className="btn-secondary">
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="btn-primary flex items-center justify-center"
-                  >
-                    Update Employee
-                  </button>
-                </div>
-              </form>
+              <EmployeeForm
+                initialData={editEmployee}
+                onSuccess={() => {
+                  setEditEmployee(null);
+                  fetchEmployees();
+                }}
+                onCancel={() => setEditEmployee(null)}
+              />
             </div>
           </div>
         </div>
