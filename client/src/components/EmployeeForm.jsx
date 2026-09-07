@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DEPARTMENTS } from "../assets/assets";
+import { Loader2Icon } from "lucide-react";
 
 const EmployeeForm = ({ initialData, onSuccess, onCancel }) => {
   const navigate = useNavigate();
@@ -154,23 +155,34 @@ const EmployeeForm = ({ initialData, onSuccess, onCancel }) => {
           <div className="sm:col-span-2">
             <label className="block mb-2">Work Email</label>
             <input
+              name="email"
               required
               type="email"
-              defaultValue="tem1@gmail.com"
-              name="email"
+              defaultValue={initialData?.email}
             />
           </div>
-          <div>
-            <label className="block mb-2">Change Password (Optional)</label>
-            <input
-              placeholder="Leave blank to keep current"
-              type="password"
-              name="password"
-            />
-          </div>
+          {!isEditMode && (
+            <div>
+              <label className="block mb-2">Temporary Password</label>
+              <input name="password" type="password" required />
+            </div>
+          )}
+          {isEditMode && (
+            <div>
+              <label className="block mb-2">Change Password (Optional)</label>
+              <input
+                name="password"
+                placeholder="Leave blank to keep current"
+                type="password"
+              />
+            </div>
+          )}
           <div>
             <label className="block mb-2">System Role</label>
-            <select name="role">
+            <select
+              name="role"
+              defaultValue={initialData?.user?.role || "EMPLOYEE"}
+            >
               <option value="EMPLOYEE" selected>
                 Employee
               </option>
@@ -182,14 +194,20 @@ const EmployeeForm = ({ initialData, onSuccess, onCancel }) => {
 
       {/* BTNs */}
       <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-2">
-        <button type="button" className="btn-secondary">
+        <button
+          type="button"
+          className="btn-secondary"
+          onClick={() => (onCancel ? onCancel() : navigate(-1))}
+        >
           Cancel
         </button>
         <button
           type="submit"
           className="btn-primary flex items-center justify-center"
+          disabled={loading}
         >
-          Update Employee
+          {loading && <Loader2Icon className="w-4 h-4 mr-2 animate-spin" />}
+          {isEditMode ? "Update Employee" : "Create Employee"}
         </button>
       </div>
     </form>
