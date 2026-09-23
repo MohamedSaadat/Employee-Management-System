@@ -192,7 +192,7 @@ const EmployeeForm = ({ initialData, onSuccess, onCancel }) => {
         </div>
       </div>
 
-      {/* BTNs */}
+      {/* buttons */}
       <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-2">
         <button
           type="button"
